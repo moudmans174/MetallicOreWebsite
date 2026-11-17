@@ -1,0 +1,120 @@
+{
+  "company": {
+    "name": "Metallic Ore Limited",
+    "brandMain": "METALLIC",
+    "brandSub": "ORE",
+    "tagline": "Nature's Wealth, Our Priority",
+    "phone": "+232 77 460171",
+    "whatsapp": "23277460171",
+    "email": "",
+    "address1": "63 Smart Farm, Wilkinson Road",
+    "address2": "Freetown, Sierra Leone",
+    "licence": "Miner, Dealer & Exporter for Gold & Diamonds in SL",
+    "logo": "assets/logo.png",
+    "logoMark": "assets/logo-mark.png",
+    "facebook": "",
+    "instagram": "",
+    "linkedin": ""
+  },
+  "seo": {
+    "title": "Metallic Ore Limited | Gold, Diamond & Minerals Exporter, Sierra Leone",
+    "description": "Metallic Ore Limited is a trusted miner, dealer and exporter of gold, diamonds and other valuable minerals in Sierra Leone and beyond."
+  },
+  "hero": {
+    "headlinePre": "Build a",
+    "headlineHighlight": "Brighter Future",
+    "headlinePost": "with Natural Resources",
+    "lead": "A trusted and reliable company specialising in the supply and export of **Gold**, **Diamonds** and other valuable minerals in **Sierra Leone** and beyond.",
+    "ctaPrimary": "Request a Quote",
+    "ctaSecondary": "View Live Prices",
+    "video": "assets/mining-bg.mp4",
+    "poster": "assets/poster.jpg",
+    "showGoldBadge": true
+  },
+  "about": {
+    "eyebrow": "Who we are",
+    "titleMain": "Nature's Wealth,",
+    "titleScript": "Our Priority",
+    "paragraphs": [
+      "**Metallic Ore Limited** is a licensed miner, dealer and exporter of gold and diamonds based at Wilkinson Road, Freetown. We connect Sierra Leone's natural resources with buyers around the world through transparent, professional and responsible trade.",
+      "From alluvial and rock gold to rough diamonds and industrial minerals, we handle sourcing, assaying, documentation and secure export so our partners can buy with confidence."
+    ],
+    "image": "assets/poster.jpg",
+    "stats": [
+      { "value": 100, "suffix": "%", "label": "Certified & documented" },
+      { "value": 24, "suffix": "/7", "label": "Partner support" },
+      { "value": 4, "suffix": "+", "label": "Continents served" }
+    ]
+  },
+  "products": {
+    "eyebrow": "What we supply",
+    "title": "Gold · Diamond · Minerals",
+    "items": [
+      { "icon": "gold", "image": "", "title": "Gold", "sub": "Alluvial & Rock Gold", "text": "High-purity gold dust, nuggets and bars, assayed and traded at fair, market-linked prices." },
+      { "icon": "diamond", "image": "", "title": "Diamonds", "sub": "Rough & Uncut", "text": "Kimberley Process certified rough diamonds sorted by size, colour and clarity." },
+      { "icon": "minerals", "image": "", "title": "Other Minerals", "sub": "Precious & Industrial", "text": "Rutile, zircon, ilmenite, bauxite, iron ore and other minerals supplied to specification." },
+      { "icon": "export", "image": "", "title": "Export Services", "sub": "Safe & Reliable", "text": "Licensing, documentation, insured shipping and logistics from Freetown to the world." }
+    ]
+  },
+  "prices": {
+    "title": "Live Mineral & Metal Prices",
+    "liveEnabled": true,
+    "goldFallback": 3998.9,
+    "showSilver": true,
+    "showPlatinum": true,
+    "showPalladium": true,
+    "showChart": true,
+    "showCalculator": true,
+    "indicativeUpdated": "November 2026",
+    "note": "Diamond, rutile and industrial mineral prices are negotiated per parcel and depend on grade, size, quantity and terms. Contact Metallic Ore Limited for a firm quote.",
+    "minerals": [
+      { "name": "Rough diamonds (gem)", "grade": "Sierra Leone alluvial, mixed parcel avg.", "price": "250 – 600", "unit": "per carat" },
+      { "name": "Rough diamonds (1 ct+ white)", "grade": "Single stones, good colour/clarity", "price": "1,000 – 5,000+", "unit": "per carat" },
+      { "name": "Industrial diamonds / boart", "grade": "Near-gem & industrial", "price": "5 – 40", "unit": "per carat" },
+      { "name": "Rutile", "grade": "95% TiO₂ min, bulk FOB", "price": "1,300 – 1,700", "unit": "per tonne" },
+      { "name": "Ilmenite", "grade": "50–54% TiO₂ concentrate", "price": "250 – 350", "unit": "per tonne" },
+      { "name": "Zircon", "grade": "Premium, 66% ZrO₂", "price": "1,500 – 2,000", "unit": "per tonne" },
+      { "name": "Bauxite", "grade": "Metallurgical, CIF China", "price": "65 – 80", "unit": "per tonne" },
+      { "name": "Iron ore", "grade": "62% Fe fines, CFR China", "price": "95 – 110", "unit": "per tonne" },
+      { "name": "Coltan (tantalite)", "grade": "30% Ta₂O₅ concentrate", "price": "180 – 250", "unit": "per kg" }
+    ]
+  },
+  "why": {
+    "eyebrow": "Why partner with us",
+    "title": "Partnering for Sustainable Mining and Global Growth",
+    "items": [
+      { "icon": "🤝", "title": "Trusted Partner", "text": "Long-term relationships built on honesty and fair dealing." },
+      { "icon": "🛡️", "title": "Professional Service", "text": "Assaying, valuation and paperwork handled by experts." },
+      { "icon": "🌍", "title": "Global Reach", "text": "Buyers and partners across Europe, Asia, the Middle East and the Americas." },
+      { "icon": "🌱", "title": "Sustainable Mining", "text": "Responsible practices that respect land, communities and law." }
+    ]
+  },
+  "process": {
+    "titleMain": "From Our Land",
+    "titleScript": "to the World",
+    "image": "assets/poster.jpg",
+    "steps": [
+      { "title": "Source", "text": "Responsibly mined and purchased from licensed sites." },
+      { "title": "Assay & Value", "text": "Independent testing for purity, weight and grade." },
+      { "title": "Certify", "text": "Export licences, Kimberley Process and customs documents." },
+      { "title": "Ship", "text": "Secure, insured delivery from Freetown to your door." }
+    ]
+  },
+  "location": {
+    "title": "Our Location",
+    "mapQuery": "Wilkinson Road, Freetown, Sierra Leone",
+    "mapEmbedUrl": "",
+    "lat": 8.4745,
+    "lng": -13.2595
+  },
+  "contact": {
+    "title": "Request a Quote",
+    "text": "Tell us what you need and we'll get back to you quickly. Your request is saved and WhatsApp opens so you can message us directly.",
+    "products": ["Gold", "Diamonds", "Rutile", "Other minerals", "Export services"]
+  },
+  "footer": {
+    "script": "Sierra Leone",
+    "line": "OUR HOME · OUR PRIDE"
+  },
+  "updatedAt": "2026-11-17T02:30:00.000Z"
+}

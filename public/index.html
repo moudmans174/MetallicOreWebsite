@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Metallic Ore Limited | Gold, Diamond & Minerals Exporter, Sierra Leone</title>
+  <meta name="description" id="metaDesc" content="Metallic Ore Limited – miner, dealer and exporter of gold, diamonds and minerals in Sierra Leone." />
+  <link rel="icon" id="favicon" href="assets/logo-mark.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Great+Vibes&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="loading">
+
+  <div class="ticker" aria-label="World market prices">
+    <div class="ticker__label"><span class="dot"></span> LIVE MARKET</div>
+    <div class="ticker__track"><div class="ticker__inner" id="tickerInner">Loading world market prices…</div></div>
+  </div>
+
+  <header class="nav" id="nav">
+    <a href="#home" class="nav__brand">
+      <img data-src="company.logoMark" src="assets/logo-mark.png" alt="" />
+      <span><b data-text="company.brandMain">METALLIC</b> <i data-text="company.brandSub" style="font-style:normal">ORE</i><small>LIMITED</small></span>
+    </a>
+    <nav class="nav__links" id="navLinks">
+      <a href="#about">About</a>
+      <a href="#products">Products</a>
+      <a href="#prices">Market Prices</a>
+      <a href="#why">Why Us</a>
+      <a href="#location">Location</a>
+      <a href="#contact" class="btn btn--gold btn--sm">Contact Us</a>
+    </nav>
+    <button class="nav__toggle" id="navToggle" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </header>
+
+  <section class="hero" id="home">
+    <video class="hero__video" id="heroVideo" autoplay muted loop playsinline></video>
+    <div class="hero__shade"></div>
+    <canvas class="hero__sparkles" id="sparkles"></canvas>
+    <div class="hero__content">
+      <img class="hero__logo reveal" data-src="company.logo" src="assets/logo.png" alt="Metallic Ore — Gold, Diamond, Minerals" />
+      <h1 class="reveal"><span data-text="hero.headlinePre"></span> <span class="gold-text" data-text="hero.headlineHighlight"></span><br /><span data-text="hero.headlinePost"></span></h1>
+      <p class="hero__lead reveal" data-rich="hero.lead"></p>
+      <div class="hero__cta reveal">
+        <a href="#contact" class="btn btn--gold" data-text="hero.ctaPrimary">Request a Quote</a>
+        <a href="#prices" class="btn btn--ghost" data-text="hero.ctaSecondary">View Live Prices</a>
+      </div>
+      <div class="hero__gold reveal" id="heroGold">
+        <span>Gold spot (XAU/USD)</span>
+        <strong id="heroGoldPrice">—</strong>
+        <em id="heroGoldChange"></em>
+      </div>
+    </div>
+    <a href="#about" class="hero__scroll" aria-label="Scroll down"><span></span></a>
+  </section>
+
+  <section class="section about" id="about">
+    <div class="container about__grid">
+      <div class="about__text reveal">
+        <p class="eyebrow" data-text="about.eyebrow"></p>
+        <h2><span data-text="about.titleMain"></span> <span class="script" data-text="about.titleScript"></span></h2>
+        <div id="aboutParas"></div>
+        <div class="stats" id="aboutStats"></div>
+      </div>
+      <div class="about__media reveal">
+        <div class="about__img" id="aboutImg"></div>
+        <div class="about__badge"><span class="script" data-text="footer.script"></span><small data-text="footer.line"></small></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section products" id="products">
+    <div class="container">
+      <p class="eyebrow center reveal" data-text="products.eyebrow"></p>
+      <h2 class="center reveal" data-text="products.title"></h2>
+      <div class="cards" id="productCards"></div>
+    </div>
+  </section>
+
+  <section class="section prices" id="prices">
+    <div class="container">
+      <p class="eyebrow center reveal">World market</p>
+      <h2 class="center reveal" data-text="prices.title"></h2>
+      <p class="center muted reveal">Precious metal spot prices refresh automatically every 60 seconds. <span id="lastUpdated"></span></p>
+      <div class="unit-switch reveal" role="tablist">
+        <button class="active" data-unit="oz">per troy oz</button>
+        <button data-unit="g">per gram</button>
+        <button data-unit="kg">per kg</button>
+      </div>
+      <div class="metal-grid" id="metalGrid"></div>
+      <div class="prices__split" id="pricesSplit">
+        <div class="panel reveal" id="chartPanel">
+          <h3>Gold chart (XAU/USD)</h3>
+          <div class="tradingview-widget-container" id="tvChart"></div>
+        </div>
+        <div class="panel reveal" id="calcPanel">
+          <h3>Gold value calculator</h3>
+          <form class="calc" id="calc">
+            <label>Weight
+              <div class="row"><input type="number" id="calcWeight" value="10" min="0" step="any" />
+                <select id="calcUnit"><option value="g">grams</option><option value="oz">troy oz</option><option value="kg">kg</option></select></div>
+            </label>
+            <label>Purity
+              <select id="calcPurity">
+                <option value="0.999">24K · 999.9 fine</option>
+                <option value="0.958">23K · 958</option>
+                <option value="0.916">22K · 916</option>
+                <option value="0.875">21K · 875</option>
+                <option value="0.75">18K · 750</option>
+                <option value="0.90">Alluvial dust (~90%)</option>
+                <option value="0.85">Alluvial dust (~85%)</option>
+              </select>
+            </label>
+            <div class="calc__out"><span>Estimated world-market value</span><strong id="calcOut">—</strong><small>Based on live spot price. Final price depends on assay, quantity and terms.</small></div>
+          </form>
+        </div>
+      </div>
+      <div class="panel reveal">
+        <h3>Diamonds, rutile & industrial minerals <span class="tag">Indicative</span></h3>
+        <div class="table-wrap">
+          <table class="mtable">
+            <thead><tr><th>Mineral</th><th>Grade / basis</th><th>Indicative price (USD)</th><th>Unit</th></tr></thead>
+            <tbody id="mineralTable"></tbody>
+          </table>
+        </div>
+        <p class="muted small" id="mineralNote"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section why" id="why">
+    <div class="container">
+      <p class="eyebrow center reveal" data-text="why.eyebrow"></p>
+      <h2 class="center reveal" data-text="why.title"></h2>
+      <div class="why__grid" id="whyGrid"></div>
+    </div>
+  </section>
+
+  <section class="section process" id="process">
+    <div class="container">
+      <h2 class="center reveal"><span data-text="process.titleMain"></span> <span class="script" data-text="process.titleScript"></span></h2>
+      <ol class="steps" id="steps"></ol>
+    </div>
+  </section>
+
+  <section class="section location" id="location">
+    <div class="container loc__grid">
+      <div class="reveal">
+        <p class="eyebrow">Visit us</p>
+        <h2 data-text="location.title"></h2>
+        <ul class="contact-list">
+          <li><span>📍</span><div><b data-text="company.address1"></b><br /><span class="plain" data-text="company.address2"></span></div></li>
+          <li><span>📞</span><div><b data-text="company.phone"></b><br />Call or WhatsApp</div></li>
+          <li id="emailRow" hidden><span>✉️</span><div><b data-text="company.email"></b><br />Email us</div></li>
+          <li><span>⛏️</span><div data-text="company.licence"></div></li>
+        </ul>
+        <div class="loc__btns">
+          <a class="btn btn--gold" id="directionsBtn" target="_blank" rel="noopener" href="#">Get Directions</a>
+          <button class="btn btn--ghost" id="locateMe" type="button">Show my distance</button>
+        </div>
+        <p class="muted small" id="distanceOut"></p>
+      </div>
+      <div class="map reveal">
+        <iframe id="mapFrame" title="Our location on Google Maps" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+      </div>
+    </div>
+  </section>
+
+  <section class="section contact" id="contact">
+    <div class="container contact__grid">
+      <div class="reveal">
+        <p class="eyebrow">Get in touch</p>
+        <h2 data-text="contact.title"></h2>
+        <p class="muted" data-text="contact.text"></p>
+      </div>
+      <form class="form reveal" id="quoteForm">
+        <div class="row2">
+          <input required name="name" placeholder="Full name" maxlength="100" />
+          <input name="country" placeholder="Country" maxlength="60" />
+        </div>
+        <div class="row2">
+          <input name="email" type="email" placeholder="Email (optional)" maxlength="120" />
+          <input name="phone" placeholder="Phone / WhatsApp" maxlength="40" />
+        </div>
+        <div class="row2">
+          <select name="product" id="productSelect"></select>
+          <input name="qty" placeholder="Quantity (e.g. 5 kg)" maxlength="60" />
+        </div>
+        <textarea name="message" rows="4" placeholder="Your message" maxlength="3000"></textarea>
+        <input name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <button class="btn btn--gold" type="submit">Send Request</button>
+        <p class="form__status" id="formStatus" role="status"></p>
+      </form>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer__flag"></div>
+    <div class="container footer__inner">
+      <div><img data-src="company.logo" src="assets/logo.png" alt="Metallic Ore" class="footer__logo" /></div>
+      <div>
+        <p class="script big" data-text="footer.script"></p>
+        <p class="muted" data-text="footer.line"></p>
+        <p class="socials" id="socials"></p>
+      </div>
+      <div class="muted small">
+        <p data-text="company.address1"></p>
+        <p>Tel / WhatsApp: <span data-text="company.phone"></span></p>
+        <p>© <span id="year"></span> <span data-text="company.name"></span>. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <a class="wa-float" id="waFloat" href="#" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <svg viewBox="0 0 32 32" width="30" height="30"><path fill="#fff" d="M16 3a13 13 0 0 0-11.2 19.6L3 29l6.6-1.7A13 13 0 1 0 16 3zm0 23.6a10.6 10.6 0 0 1-5.4-1.5l-.4-.2-3.9 1 1-3.8-.2-.4A10.6 10.6 0 1 1 16 26.6zm5.8-7.9c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7 0a8.7 8.7 0 0 1-4.3-3.8c-.3-.6.3-.5.9-1.7.1-.2 0-.4 0-.5l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.9.4 3.6 3.6 0 0 0-1.1 2.7 6.3 6.3 0 0 0 1.3 3.3 14.4 14.4 0 0 0 5.5 4.9c2 .9 2.8.9 3.8.8a3.2 3.2 0 0 0 2.1-1.5 2.6 2.6 0 0 0 .2-1.5c-.1-.2-.3-.3-.6-.4z"/></svg>
+  </a>
+
+  <script src="js/prices.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/content.js"></script>
+</body>
+</html>

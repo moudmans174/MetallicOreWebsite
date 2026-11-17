@@ -1,0 +1,8 @@
+node_modules/
+.env
+data/admin.json
+data/.secret
+data/inquiries.json
+data/backups/
+uploads/*
+!uploads/.gitkeep
