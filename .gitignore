@@ -6,3 +6,7 @@ data/inquiries.json
 data/backups/
 uploads/*
 !uploads/.gitkeep
+
+# leftover files, not part of the site
+_to_delete/
+*.zip
