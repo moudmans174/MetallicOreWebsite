@@ -56,15 +56,15 @@
   const SECTIONS = {
     company: { title: "Company & Contact", cards: [
       { title: "Company details", fields: [
-        { p: "company.name", l: "Company name" }, { p: "company.tagline", l: "Tagline" },
-        { p: "company.brandMain", l: "Logo text (gold part)" }, { p: "company.brandSub", l: "Logo text (white part)" },
+        { p: "company.name", l: "Company name", nt: true }, { p: "company.tagline", l: "Tagline" },
+        { p: "company.brandMain", l: "Logo text (gold part)", nt: true }, { p: "company.brandSub", l: "Logo text (white part)", nt: true },
         { p: "company.licence", l: "Licence / business line", full: true } ] },
       { title: "Contact", fields: [
-        { p: "company.phone", l: "Phone (as displayed)" },
-        { p: "company.whatsapp", l: "WhatsApp number", hint: "Digits only, with country code, e.g. 23277460171" },
-        { p: "company.email", l: "Email (optional)" }, { p: "company.address1", l: "Address line 1" }, { p: "company.address2", l: "Address line 2" } ] },
+        { p: "company.phone", l: "Phone (as displayed)", nt: true },
+        { p: "company.whatsapp", l: "WhatsApp number", nt: true, hint: "Digits only, with country code, e.g. 23277460171" },
+        { p: "company.email", l: "Email (optional)", nt: true }, { p: "company.address1", l: "Address line 1" }, { p: "company.address2", l: "Address line 2" } ] },
       { title: "Logos", fields: [ { p: "company.logo", l: "Main logo", t: "image", full: true }, { p: "company.logoMark", l: "Small logo / icon (menu & browser tab)", t: "image", full: true } ] },
-      { title: "Social media", hint: "Leave empty to hide.", fields: [ { p: "company.facebook", l: "Facebook URL" }, { p: "company.instagram", l: "Instagram URL" }, { p: "company.linkedin", l: "LinkedIn URL" } ] },
+      { title: "Social media", hint: "Leave empty to hide.", fields: [ { p: "company.facebook", l: "Facebook URL", nt: true }, { p: "company.instagram", l: "Instagram URL", nt: true }, { p: "company.linkedin", l: "LinkedIn URL", nt: true } ] },
     ]},
     hero: { title: "Hero & Background Video", cards: [
       { title: "Headline", fields: [
@@ -82,7 +82,7 @@
         { p: "about.paragraphs", l: "Paragraphs", t: "strlist", area: true, full: true, hint: "Use **double stars** for bold." },
         { p: "about.image", l: "Image", t: "image", full: true } ] },
       { title: "Statistics", fields: [ { p: "about.stats", t: "repeater", full: true, item: "Statistic", fields: [
-        { k: "value", l: "Number", t: "number" }, { k: "suffix", l: "Suffix (%, +, /7…)" }, { k: "label", l: "Label", full: true } ] } ] },
+        { k: "value", l: "Number", t: "number" }, { k: "suffix", l: "Suffix (%, +, /7…)", nt: true }, { k: "label", l: "Label", full: true } ] } ] },
     ]},
     products: { title: "Products & Services", cards: [
       { title: "Section heading", fields: [ { p: "products.eyebrow", l: "Small heading" }, { p: "products.title", l: "Title" } ] },
@@ -100,13 +100,13 @@
         { p: "prices.showCalculator", l: "Show gold value calculator", t: "check" } ] },
       { title: "Diamonds, rutile & other minerals", hint: "These are shown as indicative prices. Update them whenever you get new market quotes.", fields: [
         { p: "prices.indicativeUpdated", l: "Prices as of (e.g. November 2026)" },
-        { p: "prices.minerals", t: "table", full: true, cols: [ { k: "name", l: "Mineral" }, { k: "grade", l: "Grade / basis" }, { k: "price", l: "Price (USD)" }, { k: "unit", l: "Unit" } ] },
+        { p: "prices.minerals", t: "table", full: true, cols: [ { k: "name", l: "Mineral" }, { k: "grade", l: "Grade / basis" }, { k: "price", l: "Price (USD)", nt: true }, { k: "unit", l: "Unit" } ] },
         { p: "prices.note", l: "Note under the table", t: "textarea", full: true } ] },
     ]},
     why: { title: "Why Choose Us", cards: [
       { title: "Heading", fields: [ { p: "why.eyebrow", l: "Small heading" }, { p: "why.title", l: "Title" } ] },
       { title: "Reasons", fields: [ { p: "why.items", t: "repeater", full: true, item: "Reason", titleKey: "title", fields: [
-        { k: "icon", l: "Icon (emoji)" }, { k: "title", l: "Title" }, { k: "text", l: "Text", t: "textarea", full: true } ] } ] },
+        { k: "icon", l: "Icon (emoji)", nt: true }, { k: "title", l: "Title" }, { k: "text", l: "Text", t: "textarea", full: true } ] } ] },
     ]},
     process: { title: "Export Process", cards: [
       { title: "Heading & background", fields: [ { p: "process.titleMain", l: "Title" }, { p: "process.titleScript", l: "Title – script part" }, { p: "process.image", l: "Background image", t: "image", full: true } ] },
@@ -114,14 +114,21 @@
     ]},
     location: { title: "Location & Map", cards: [
       { title: "Google Map", hint: "Simplest: type your address or place name. For an exact pin: in Google Maps click Share → Embed a map → copy only the link inside src=\"…\" and paste it below.", fields: [
-        { p: "location.title", l: "Section title" }, { p: "location.mapQuery", l: "Address / place to show on map" },
-        { p: "location.mapEmbedUrl", l: "Google Maps embed link (optional, overrides address)", full: true, hint: "Must start with https://www.google.com/maps/embed" },
+        { p: "location.title", l: "Section title" }, { p: "location.mapQuery", l: "Address / place to show on map", nt: true },
+        { p: "location.mapEmbedUrl", l: "Google Maps embed link (optional, overrides address)", full: true, nt: true, hint: "Must start with https://www.google.com/maps/embed" },
         { p: "location.lat", l: "Latitude (for directions & distance)", t: "number" }, { p: "location.lng", l: "Longitude", t: "number" } ] },
     ], after: mapPreview },
     contact: { title: "Contact Form", cards: [
       { title: "Quote request form", fields: [ { p: "contact.title", l: "Title" }, { p: "contact.text", l: "Text", t: "textarea", full: true },
         { p: "contact.products", l: "Product options in the form", t: "strlist", full: true } ] },
     ]},
+    settings: { title: "Languages & Theme", noTr: true, cards: [
+      { title: "Theme", hint: "Visitors can switch between dark and light with the sun/moon button. Choose what first-time visitors see.", fields: [
+        { p: "settings.defaultTheme", l: "Default theme", t: "select", opts: ["dark", "light", "auto"], labels: { dark: "Dark (navy & gold)", light: "Light (corporate)", auto: "Automatic (follow the visitor's device)" } } ] },
+      { title: "Languages", hint: "Tick the languages shown in the website's language menu. Translate the texts by choosing a language in “Editing language” at the top of this panel.", fields: [
+        { p: "settings.languages", t: "langs", full: true },
+        { p: "settings.defaultLang", l: "Default language", t: "select", opts: ["en", "fr", "zh", "ar"], labels: { en: "English", fr: "Français (French)", zh: "中文 (Chinese)", ar: "العربية (Arabic)" }, hint: "Visitors whose browser uses one of your languages see it automatically; everyone else sees the default." } ] },
+    ], after: translationProgress },
     seo: { title: "Footer & SEO", cards: [
       { title: "Search engines (Google)", fields: [ { p: "seo.title", l: "Page title", full: true }, { p: "seo.description", l: "Description", t: "textarea", full: true } ] },
       { title: "Footer", fields: [ { p: "footer.script", l: "Script text" }, { p: "footer.line", l: "Line under it" } ] },
@@ -132,7 +139,7 @@
     ["", [["dashboard", "📊", "Dashboard"]]],
     ["Website content", [["company", "🏢", "Company & Contact"], ["hero", "🎬", "Hero & Video"], ["about", "📖", "About"], ["products", "💎", "Products"],
       ["prices", "💰", "Market Prices"], ["why", "🤝", "Why Choose Us"], ["process", "🚢", "Export Process"], ["location", "📍", "Location & Map"],
-      ["contact", "✉️", "Contact Form"], ["seo", "🔎", "Footer & SEO"]]],
+      ["contact", "✉️", "Contact Form"], ["seo", "🔎", "Footer & SEO"], ["settings", "🌐", "Languages & Theme"]]],
     ["Manage", [["inquiries", "📥", "Quote Requests"], ["media", "🖼️", "Media Library"], ["backups", "🕘", "Backups"], ["account", "🔐", "Account"]]],
   ];
 
@@ -175,13 +182,34 @@
     return h("div", { class: "media-field" }, prev, h("div", { class: "ctl" }, input, h("div", { class: "btns" }, upBtn, pickBtn, clr, file)));
   }
 
+  /* ----- translation mode ----- */
+  const LANG_NAMES = { en: "English", fr: "Français", zh: "中文", ar: "العربية" };
+  const NON_TEXT = ["image", "video", "number", "check", "select", "langs"];
+  let editLang = "en";
+  const trMode = () => editLang !== "en";
+  const canTr = (f) => !f.nt && !NON_TEXT.includes(f.t);
+  function getTr(path) { return draft.translations?.[editLang]?.[path] ?? ""; }
+  function setTr(path, v) {
+    draft.translations = draft.translations || {};
+    const t = (draft.translations[editLang] = draft.translations[editLang] || {});
+    if (v === "") delete t[path]; else t[path] = v;
+    markDirty();
+  }
+  const enHint = (path) => { const v = getPath(draft, path); return v ? h("small", { class: "en-hint" }, "English: " + v) : null; };
+  function trInput(path, area) {
+    const attrs = { placeholder: getPath(draft, path) || "", dir: editLang === "ar" ? "rtl" : null, lang: editLang, oninput: (e) => setTr(path, e.target.value) };
+    return area ? h("textarea", { rows: 3, ...attrs }, getTr(path)) : h("input", { ...attrs, value: getTr(path) });
+  }
+
   function control(f, path) {
     const v = getPath(draft, path);
+    if (trMode() && (f.t === undefined || f.t === "textarea")) return trInput(path, f.t === "textarea");
     switch (f.t) {
       case "textarea": return h("textarea", { rows: 3, oninput: (e) => onVal(path, e.target.value) }, v ?? "");
       case "number": return h("input", { type: "number", step: "any", value: v ?? "", oninput: (e) => onVal(path, e.target.value === "" ? "" : Number(e.target.value)) });
       case "check": return h("input", { type: "checkbox", checked: v !== false, onchange: (e) => onVal(path, e.target.checked) });
-      case "select": return h("select", { onchange: (e) => onVal(path, e.target.value) }, ...f.opts.map((o) => h("option", { value: o, selected: o === v }, o)));
+      case "select": return h("select", { onchange: (e) => onVal(path, e.target.value) }, ...f.opts.map((o) => h("option", { value: o, selected: o === v }, f.labels?.[o] || o)));
+      case "langs": return langsControl(path);
       case "image": return mediaField(path, "image");
       case "video": return mediaField(path, "video");
       case "strlist": return strList(f, path);
@@ -191,18 +219,35 @@
     }
   }
   function fieldEl(f, path) {
+    const container = ["repeater", "table", "strlist"].includes(f.t);
+    if (trMode() && !container && !canTr(f)) return null; // shared in all languages → only edited in English
     const isCheck = f.t === "check";
     return h(isCheck ? "label" : "div", { class: "field" + (f.full || ["repeater", "table"].includes(f.t) ? " full" : "") + (isCheck ? " check" : "") },
       isCheck ? control(f, path) : null,
       f.l ? h("span", {}, f.l) : null,
       isCheck ? null : control(f, path),
-      f.hint ? h("small", {}, f.hint) : null);
+      trMode() && !container ? enHint(path) : null,
+      f.hint && !trMode() ? h("small", {}, f.hint) : null);
+  }
+
+  function langsControl(path) {
+    const cur = new Set(getPath(draft, path) || ["en"]);
+    return h("div", { class: "row-actions" }, ...Object.entries(LANG_NAMES).map(([code, name]) =>
+      h("label", { class: "field check", style: "margin:0 18px 0 0" },
+        h("input", { type: "checkbox", checked: cur.has(code), disabled: code === "en", onchange: (e) => {
+          e.target.checked ? cur.add(code) : cur.delete(code);
+          onVal(path, Object.keys(LANG_NAMES).filter((c) => cur.has(c))); renderLangBar();
+        } }), h("span", {}, name + (code === "en" ? " (main)" : "")))));
   }
 
   function strList(f, path) {
     const wrap = h("div", { class: "strlist" });
     const draw = () => {
       const arr = getPath(draft, path) || [];
+      if (trMode()) {
+        wrap.replaceChildren(...arr.map((s, i) => h("div", { class: "row", style: "flex-direction:column;gap:2px" }, trInput(`${path}.${i}`, f.area), enHint(`${path}.${i}`))));
+        return;
+      }
       wrap.replaceChildren(...arr.map((s, i) => h("div", { class: "row" },
         f.area ? h("textarea", { rows: 3, oninput: (e) => { arr[i] = e.target.value; markDirty(); } }, s) : h("input", { value: s, oninput: (e) => { arr[i] = e.target.value; markDirty(); } }),
         h("button", { type: "button", class: "icon-btn", title: "Move up", onclick: () => { if (i) { [arr[i - 1], arr[i]] = [arr[i], arr[i - 1]]; markDirty(); draw(); } } }, "↑"),
@@ -216,6 +261,13 @@
     const wrap = h("div");
     const draw = () => {
       const arr = getPath(draft, path) || []; setPath(draft, path, arr);
+      if (trMode()) {
+        const sub = f.fields.filter(canTr);
+        wrap.replaceChildren(...arr.map((it, i) => h("div", { class: "rep-item" },
+          h("div", { class: "rep-head" }, h("b", {}, `${f.item} ${i + 1}${f.titleKey && it[f.titleKey] ? " · " + it[f.titleKey] : ""}`)),
+          h("div", { class: "grid2" }, ...sub.map((sf) => fieldEl(sf, `${path}.${i}.${sf.k}`))))));
+        return;
+      }
       wrap.replaceChildren(...arr.map((it, i) => h("div", { class: "rep-item" },
         h("div", { class: "rep-head" }, h("b", {}, `${f.item} ${i + 1}${f.titleKey && it[f.titleKey] ? " · " + it[f.titleKey] : ""}`),
           h("button", { type: "button", class: "icon-btn", title: "Move up", onclick: () => { if (i) { [arr[i - 1], arr[i]] = [arr[i], arr[i - 1]]; markDirty(); draw(); } } }, "↑"),
@@ -234,6 +286,13 @@
     const wrap = h("div", { style: "overflow-x:auto" });
     const draw = () => {
       const arr = getPath(draft, path) || []; setPath(draft, path, arr);
+      if (trMode()) {
+        wrap.replaceChildren(h("table", { class: "tbl mtbl" },
+          h("thead", {}, h("tr", {}, ...f.cols.map((c) => h("th", {}, c.l)))),
+          h("tbody", {}, ...arr.map((row, i) => h("tr", {}, ...f.cols.map((c) => h("td", {},
+            c.nt ? h("span", { class: "muted" }, row[c.k] ?? "") : trInput(`${path}.${i}.${c.k}`))))))));
+        return;
+      }
       wrap.replaceChildren(h("table", { class: "tbl mtbl" },
         h("thead", {}, h("tr", {}, ...f.cols.map((c) => h("th", {}, c.l)), h("th", {}, ""))),
         h("tbody", {}, ...arr.map((row, i) => h("tr", {},
@@ -247,6 +306,45 @@
     draw(); return wrap;
   }
 
+  /* all translatable paths in the current content (for progress counts) */
+  function translatablePaths() {
+    const out = [];
+    Object.entries(SECTIONS).forEach(([, sec]) => sec.cards.forEach((c) => c.fields.forEach((f) => {
+      if (!canTr(f) && !["repeater", "table", "strlist"].includes(f.t)) return;
+      const val = getPath(draft, f.p);
+      if (f.t === "strlist") (val || []).forEach((v, i) => v && out.push(`${f.p}.${i}`));
+      else if (f.t === "repeater") (val || []).forEach((it, i) => f.fields.filter(canTr).forEach((sf) => it[sf.k] && out.push(`${f.p}.${i}.${sf.k}`)));
+      else if (f.t === "table") (val || []).forEach((row, i) => f.cols.filter((c) => !c.nt).forEach((c) => row[c.k] && out.push(`${f.p}.${i}.${c.k}`)));
+      else if (val) out.push(f.p);
+    })));
+    return out;
+  }
+  function translationProgress() {
+    const paths = translatablePaths();
+    const langs = (draft.settings?.languages || ["en"]).filter((l) => l !== "en");
+    return h("div", { class: "card" }, h("h3", {}, "Translation progress"),
+      h("p", { class: "hint" }, "Texts without a translation are shown in English."),
+      ...(langs.length ? langs.map((l) => {
+        const done = paths.filter((p) => (draft.translations?.[l]?.[p] ?? "") !== "").length;
+        const pct = paths.length ? Math.round((done / paths.length) * 100) : 100;
+        return h("div", { class: "progress" }, h("span", {}, LANG_NAMES[l]), h("div", { class: "bar" }, h("i", { style: `width:${pct}%` })), h("b", {}, `${done}/${paths.length}`),
+          h("button", { class: "btn btn--ghost btn--sm", onclick: () => { setEditLang(l); } }, "Edit " + LANG_NAMES[l]));
+      }) : [h("p", { class: "muted" }, "Only English is switched on.")]));
+  }
+
+  /* language bar in the top header */
+  function renderLangBar() {
+    const langs = draft?.settings?.languages || ["en"];
+    if (!langs.includes(editLang)) editLang = "en";
+    const bar = $("#langBar");
+    bar.hidden = langs.length < 2;
+    bar.replaceChildren(h("span", { class: "muted" }, "Editing language:"),
+      ...Object.keys(LANG_NAMES).filter((l) => langs.includes(l)).map((l) =>
+        h("button", { class: "lang-tab" + (l === editLang ? " on" : ""), onclick: () => setEditLang(l) }, LANG_NAMES[l])));
+    document.body.classList.toggle("tr-mode", trMode());
+  }
+  function setEditLang(l) { editLang = l; renderLangBar(); route(); }
+
   function mapPreview() {
     const L = draft.location || {};
     const src = /^https:\/\/(www\.)?google\.[a-z.]+\/maps\/embed/i.test(L.mapEmbedUrl || "") ? L.mapEmbedUrl
@@ -258,8 +356,18 @@
   /* ---------------- pages ---------------- */
   function sectionPage(id) {
     const s = SECTIONS[id];
-    const nodes = s.cards.map((c) => h("div", { class: "card" }, h("h3", {}, c.title), c.hint ? h("p", { class: "hint" }, c.hint) : h("div", { style: "height:12px" }),
-      h("div", { class: "grid2" }, ...c.fields.map((f) => fieldEl(f, f.p)))));
+    const nodes = [];
+    if (trMode() && s.noTr) {
+      nodes.push(h("div", { class: "tr-banner" }, "These settings are the same in every language. ", h("a", { href: "#", onclick: (e) => { e.preventDefault(); setEditLang("en"); } }, "Switch back to English"), " to change them."));
+      if (s.after) nodes.push(s.after());
+      return nodes;
+    }
+    if (trMode()) nodes.push(h("div", { class: "tr-banner" }, `You are editing the ${LANG_NAMES[editLang]} version. Leave a box empty to show the English text. Images, numbers and prices are shared by all languages and are changed in English.`));
+    s.cards.forEach((c) => {
+      const fields = c.fields.map((f) => fieldEl(f, f.p)).filter(Boolean);
+      if (!fields.length) return;
+      nodes.push(h("div", { class: "card" }, h("h3", {}, c.title), c.hint && !trMode() ? h("p", { class: "hint" }, c.hint) : h("div", { style: "height:12px" }), h("div", { class: "grid2" }, ...fields)));
+    });
     if (s.after) nodes.push(s.after());
     return nodes;
   }
@@ -292,7 +400,7 @@
         const wa = (i.phone || "").replace(/\D/g, "");
         return h("tr", { class: i.read ? "" : "unread" },
           h("td", { style: "white-space:nowrap" }, fmtDate(i.date), i.read ? null : h("div", {}, h("span", { class: "pill", style: "color:var(--gold)" }, "NEW"))),
-          h("td", {}, h("b", {}, i.name), i.country ? h("div", { class: "muted" }, i.country) : null,
+          h("td", {}, h("b", {}, i.name), i.lang && i.lang !== "en" ? h("span", { class: "pill", style: "margin-inline-start:6px" }, LANG_NAMES[i.lang] || i.lang) : null, i.country ? h("div", { class: "muted" }, i.country) : null,
             i.email ? h("div", {}, h("a", { href: "mailto:" + i.email }, i.email)) : null, i.phone ? h("div", { class: "muted" }, i.phone) : null),
           h("td", {}, i.product || "—", i.qty ? h("div", { class: "muted" }, i.qty) : null),
           h("td", {}, h("div", { class: "inq-msg" }, i.message || "—")),
@@ -407,7 +515,12 @@
   window.addEventListener("hashchange", route);
 
   /* ---------------- boot ---------------- */
-  async function loadContent() { content = await api("GET", "/api/content"); draft = clone(content); clearDirty(); }
+  async function loadContent() {
+    content = await api("GET", "/api/content");
+    content.settings = content.settings || { defaultTheme: "dark", defaultLang: "en", languages: ["en"] };
+    content.translations = content.translations || {};
+    draft = clone(content); clearDirty(); renderLangBar();
+  }
   async function loadInquiries() { inquiries = await api("GET", "/api/inquiries"); }
 
   function showLogin() { $("#appView").hidden = true; $("#loginView").hidden = false; }
@@ -430,7 +543,7 @@
     try { $("#saveBtn").disabled = true; const r = await api("PUT", "/api/content", draft); draft.updatedAt = r.updatedAt; content = clone(draft); clearDirty(); toast("✓ Saved – the website is updated"); }
     catch (e) { toast(e.message, true); $("#saveBtn").disabled = false; }
   });
-  $("#discardBtn").addEventListener("click", () => { if (!confirm("Discard all unsaved changes?")) return; draft = clone(content); clearDirty(); route(); });
+  $("#discardBtn").addEventListener("click", () => { if (!confirm("Discard all unsaved changes?")) return; draft = clone(content); clearDirty(); renderLangBar(); route(); });
   document.addEventListener("keydown", (e) => { if ((e.ctrlKey || e.metaKey) && e.key === "s") { e.preventDefault(); if (dirty) $("#saveBtn").click(); } });
 
   startApp().catch(() => showLogin());

@@ -22,7 +22,8 @@ window.initMain = function (site) {
       io.unobserve(e.target);
     });
   }, { threshold: 0.15 });
-  document.querySelectorAll(".reveal").forEach((el, i) => { el.style.transitionDelay = (i % 4) * 0.08 + "s"; io.observe(el); });
+  window.observeReveals = () => document.querySelectorAll(".reveal:not(.in)").forEach((el, i) => { el.style.transitionDelay = (i % 4) * 0.08 + "s"; io.observe(el); });
+  window.observeReveals();
   function countUp(el) {
     const end = +el.dataset.count, suf = el.dataset.suffix || ""; let start = null;
     const step = (t) => { if (!start) start = t; const p = Math.min((t - start) / 1600, 1);
@@ -61,26 +62,31 @@ window.initMain = function (site) {
   Prices.onUpdate(calc); calc();
 
   /* TradingView gold chart */
-  if (site.prices?.showChart !== false) {
-    const tv = document.getElementById("tvChart"), s = document.createElement("script");
+  function buildChart() {
+    if (site.prices?.showChart === false) return;
+    const light = document.documentElement.getAttribute("data-theme") === "light";
+    const tv = document.getElementById("tvChart"); tv.innerHTML = "";
+    const s = document.createElement("script");
     s.src = "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js"; s.async = true;
-    s.innerHTML = JSON.stringify({ autosize: true, symbol: "OANDA:XAUUSD", interval: "60", timezone: "Africa/Abidjan", theme: "dark", style: "1", locale: "en",
-      backgroundColor: "rgba(5,15,36,1)", hide_side_toolbar: true, allow_symbol_change: true, support_host: "https://www.tradingview.com" });
+    s.innerHTML = JSON.stringify({ autosize: true, symbol: "OANDA:XAUUSD", interval: "60", timezone: "Africa/Abidjan", theme: light ? "light" : "dark", style: "1", locale: { zh: "zh_CN", ar: "ar_AE", fr: "fr" }[window.LANG] || "en",
+      backgroundColor: light ? "rgba(255,255,255,1)" : "rgba(5,15,36,1)", hide_side_toolbar: true, allow_symbol_change: true, support_host: "https://www.tradingview.com" });
     const inner = document.createElement("div"); inner.className = "tradingview-widget-container__widget"; inner.style.height = "100%";
     tv.appendChild(inner); tv.appendChild(s);
   }
+  buildChart();
+  document.addEventListener("themechange", buildChart);
 
   /* Distance to office */
   document.getElementById("locateMe").addEventListener("click", () => {
     const o = document.getElementById("distanceOut");
-    if (!navigator.geolocation || !OFFICE.lat) { o.textContent = "Location is not available."; return; }
-    o.textContent = "Finding your location…";
+    if (!navigator.geolocation || !OFFICE.lat) { o.textContent = t("loc.unavailable"); return; }
+    o.textContent = t("loc.finding");
     navigator.geolocation.getCurrentPosition((pos) => {
       const R = 6371, r = Math.PI / 180, a = pos.coords.latitude, b = pos.coords.longitude;
       const x = Math.sin(((OFFICE.lat - a) * r) / 2) ** 2 + Math.cos(a * r) * Math.cos(OFFICE.lat * r) * Math.sin(((OFFICE.lng - b) * r) / 2) ** 2;
       const km = 2 * R * Math.asin(Math.sqrt(x));
-      o.textContent = `You are about ${km < 10 ? km.toFixed(1) : Math.round(km).toLocaleString()} km from our office.`;
-    }, () => { o.textContent = "We couldn't get your location. Use “Get Directions” instead."; });
+      o.textContent = t("loc.result", { km: km < 10 ? km.toFixed(1) : Math.round(km).toLocaleString() });
+    }, () => { o.textContent = t("loc.failed"); });
   });
 
   /* Quote form → saved to admin panel + WhatsApp */
@@ -88,18 +94,19 @@ window.initMain = function (site) {
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const data = Object.fromEntries(new FormData(form));
-    const btn = form.querySelector("button"); btn.disabled = true; status.textContent = "Sending…";
+    data.lang = window.LANG;
+    const btn = form.querySelector("button"); btn.disabled = true; status.textContent = t("form.sending");
     try {
       const r = await fetch("/api/inquiries", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
       const j = await r.json();
-      if (!r.ok) throw new Error(j.error || "Could not send");
-      status.textContent = "Thank you! Your request has been received. Opening WhatsApp…";
+      if (!r.ok) throw new Error(j.error || t("form.error"));
+      status.textContent = t("form.thanks");
       if (WHATSAPP) {
         const msg = `Hello ${site.company?.name || ""},\n\nName: ${data.name}\nCountry: ${data.country || "-"}\nProduct: ${data.product}\nQuantity: ${data.qty || "-"}\n\n${data.message || ""}`;
         window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`, "_blank");
       }
       form.reset();
-    } catch (err) { status.textContent = err.message; }
+    } catch (err) { status.textContent = err.message && !/fetch/i.test(err.message) ? err.message : t("form.error"); }
     finally { btn.disabled = false; }
   });
 };

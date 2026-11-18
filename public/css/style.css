@@ -163,7 +163,7 @@ input:focus,select:focus,textarea:focus{border-color:var(--gold);box-shadow:0 0 
 .loc__grid{display:grid;grid-template-columns:1fr 1.4fr;gap:50px;align-items:center}
 .contact-list{list-style:none;margin:24px 0}
 .contact-list li{display:flex;gap:16px;align-items:flex-start;margin-bottom:18px}
-.contact-list span{flex:none;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:var(--grad-gold);font-size:1.2rem}
+.contact-list li>span{flex:none;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:var(--grad-gold);font-size:1.2rem}
 .loc__btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:10px}
 .map{border-radius:var(--radius);overflow:hidden;border:2px solid rgba(242,193,78,.4);box-shadow:0 30px 60px rgba(0,0,0,.45);height:440px;background:#0b1f45}
 .map iframe{width:100%;height:100%;border:0;filter:saturate(1.1)}
@@ -227,3 +227,108 @@ body.loading .hero__content,body.loading main{opacity:0}
 .card__img{width:100%;aspect-ratio:16/10;border-radius:12px;background-size:cover;background-position:center;margin-bottom:18px;border:1px solid rgba(242,193,78,.3)}
 .socials a{color:var(--gold);font-weight:600;font-size:.9rem}
 .contact-list .plain{font-weight:400}
+
+/* =========================================================
+   Theme & language switches
+   ========================================================= */
+.nav__tools{display:flex;align-items:center;gap:8px;margin-inline-start:18px}
+.lang-pick{display:flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;border:1px solid rgba(242,193,78,.45);color:var(--gold);background:rgba(3,11,28,.35);cursor:pointer}
+.lang-pick select{width:auto;padding:0;border:0;background:transparent;color:inherit;font:600 .82rem Montserrat,system-ui,sans-serif;cursor:pointer;box-shadow:none}
+.lang-pick select:focus{box-shadow:none}
+.lang-pick option{color:#0f1d3a;background:#fff}
+.theme-btn{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(242,193,78,.45);background:rgba(3,11,28,.35);color:var(--gold);cursor:pointer;transition:.25s}
+.theme-btn:hover,.lang-pick:hover{background:var(--gold);color:#1b1200}
+.theme-btn .i-moon{display:none}
+[data-theme="light"] .theme-btn .i-sun{display:none}
+[data-theme="light"] .theme-btn .i-moon{display:block}
+@media (max-width:820px){.nav__tools{margin-inline-start:auto;margin-inline-end:12px}}
+
+/* =========================================================
+   LIGHT (corporate) theme
+   ========================================================= */
+[data-theme="light"]{
+  --navy:#f6f7fb; --navy2:#ffffff; --navy3:#e9edf5;
+  --text:#0f1d3a; --muted:#5a6884;
+  --gold:#a8750b; --gold2:#8a6008; --gold3:#7a5608;
+  --line:#e3e7ef; --shadow:0 10px 30px rgba(15,29,58,.08);
+}
+/* areas that stay dark in the light theme: ticker, hero, footer */
+[data-theme="light"] .ticker,[data-theme="light"] .hero,[data-theme="light"] .footer{
+  --navy:#07142e; --navy2:#0b1f45; --text:#e9eef9; --muted:#9fb0cf; --gold:#f2c14e; --gold3:#fff1b8; color:var(--text)}
+[data-theme="light"] .hero__shade{background:radial-gradient(ellipse at center,rgba(7,20,46,.35) 0%,rgba(7,20,46,.82) 75%),linear-gradient(to bottom,rgba(7,20,46,.5),rgba(7,20,46,.25) 55%,rgba(7,20,46,.85) 100%)}
+[data-theme="light"] body{background:var(--navy)}
+/* nav: white text over the hero, dark text once scrolled */
+[data-theme="light"] .nav:not(.scrolled){color:#fff}
+[data-theme="light"] .nav:not(.scrolled) .nav__brand small{color:#c8d4ec}
+[data-theme="light"] .nav.scrolled{background:rgba(255,255,255,.96);box-shadow:0 4px 24px rgba(15,29,58,.1)}
+[data-theme="light"] .nav.scrolled .lang-pick,[data-theme="light"] .nav.scrolled .theme-btn{background:#fff;border-color:#e0c27a}
+[data-theme="light"] .nav:not(.scrolled) .lang-pick,[data-theme="light"] .nav:not(.scrolled) .theme-btn{color:#f2c14e;border-color:rgba(242,193,78,.6)}
+[data-theme="light"] .nav__brand b{background:linear-gradient(135deg,#d9a520,#a8750b);-webkit-background-clip:text;background-clip:text}
+[data-theme="light"] .btn--ghost{border-color:var(--gold);color:var(--gold);background:rgba(255,255,255,.7)}
+[data-theme="light"] .btn--ghost:hover{background:var(--gold);color:#fff}
+[data-theme="light"] .hero .btn--ghost{color:#f2c14e;border-color:#f2c14e;background:rgba(7,20,46,.4)}
+/* surfaces */
+[data-theme="light"] .about__text p{color:#3c4a66}
+[data-theme="light"] .stats div,[data-theme="light"] .card,[data-theme="light"] .metal,[data-theme="light"] .panel,
+[data-theme="light"] .why__item,[data-theme="light"] .form{background:#fff;border:1px solid var(--line);box-shadow:var(--shadow)}
+[data-theme="light"] .card:hover{border-color:var(--gold);box-shadow:0 20px 40px rgba(15,29,58,.12)}
+[data-theme="light"] .card::before{background:radial-gradient(circle,rgba(242,193,78,.18),transparent 70%)}
+[data-theme="light"] .card p:last-child,[data-theme="light"] .why__item p{color:var(--muted)}
+[data-theme="light"] .metal.gold-card{border-color:#e0c27a;box-shadow:0 10px 30px rgba(168,117,11,.12)}
+[data-theme="light"] .products{background:linear-gradient(180deg,#f6f7fb,#eef1f7 50%,#f6f7fb)}
+[data-theme="light"] .why{background:linear-gradient(180deg,#f6f7fb,#eef1f7)}
+[data-theme="light"] .contact{background:linear-gradient(180deg,#f6f7fb,#eef1f7)}
+[data-theme="light"] .ring{background:#fff}
+[data-theme="light"] .unit-switch{background:#fff;border-color:var(--line);box-shadow:var(--shadow)}
+[data-theme="light"] .unit-switch button.active{color:#1b1200}
+[data-theme="light"] input,[data-theme="light"] select,[data-theme="light"] textarea{background:#fff;border-color:#d6dbe6;color:var(--text)}
+[data-theme="light"] .mtable td{border-bottom-color:var(--line)}
+[data-theme="light"] .mtable th{border-bottom-color:#e0c27a}
+[data-theme="light"] .calc__out{background:#fffaf0;border-color:#e0c27a}
+[data-theme="light"] .tag{background:#fdf3dc}
+[data-theme="light"] .process::before{background:rgba(246,247,251,.9)}
+[data-theme="light"] .steps li{background:rgba(255,255,255,.92);box-shadow:var(--shadow)}
+[data-theme="light"] .map{border-color:#e0c27a;box-shadow:var(--shadow)}
+[data-theme="light"] .about__img{box-shadow:0 20px 50px rgba(15,29,58,.18)}
+[data-theme="light"] .metal svg line{stroke:rgba(168,117,11,.35)}
+@media (max-width:820px){
+  [data-theme="light"] .nav__links{background:rgba(255,255,255,.98);color:var(--text)}
+}
+html{transition:background-color .3s}
+
+/* =========================================================
+   Languages
+   ========================================================= */
+body.lang-ar{font-family:Cairo,Montserrat,system-ui,sans-serif}
+body.lang-ar input,body.lang-ar select,body.lang-ar textarea,body.lang-ar .btn{font-family:Cairo,Montserrat,system-ui,sans-serif}
+body.lang-cjk{font-family:Montserrat,"PingFang SC","Microsoft YaHei","Noto Sans SC",system-ui,sans-serif}
+/* the script font has no Chinese/Arabic letters: use a bold accent instead */
+body.lang-cjk .script,body.lang-ar .script{font-family:inherit;font-weight:800;font-size:1em}
+body.lang-cjk .script.big,body.lang-ar .script.big{font-size:1.8rem}
+body.lang-cjk .eyebrow,body.lang-ar .eyebrow{letter-spacing:.08em}
+/* right-to-left (Arabic) */
+[dir="rtl"] .ticker{direction:ltr}
+[dir="rtl"] .about__badge{left:auto;right:-24px}
+[dir="rtl"] .mtable th{text-align:right}
+[dir="rtl"] .nav__links a:not(.btn)::after{left:auto;right:0}
+[dir="rtl"] .wa-float{right:auto;left:22px}
+[dir="rtl"] .hero h1,[dir="rtl"] .hero__lead{letter-spacing:0}
+@media (max-width:820px){
+  [dir="rtl"] .nav__links{right:auto;left:-100%}
+  [dir="rtl"] .nav__links.open{left:0}
+}
+@media (max-width:980px){[dir="rtl"] .about__badge{right:12px}}
+/* keep prices readable next to Arabic/Chinese words */
+.ticker__inner b,.ticker__inner i{unicode-bidi:isolate}
+.metal__price,.calc__out strong,#heroGoldPrice{unicode-bidi:isolate;direction:ltr}
+/* small phones: compact logo so the switches fit */
+@media (max-width:520px){
+  .nav__brand{font-size:.95rem;gap:8px}
+  .nav__brand img{height:36px}
+  .nav__brand small{display:none}
+  .lang-pick{padding:6px 8px}
+  .lang-pick select{max-width:74px}
+}
+@media (max-width:400px){ .nav__brand span{display:none} }
+#heroGoldPrice{white-space:nowrap}
+@media (max-width:520px){.hero__gold{flex-wrap:wrap;justify-content:center;row-gap:4px;padding:10px 18px}}

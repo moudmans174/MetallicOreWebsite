@@ -16,7 +16,8 @@ const Prices = {
 const fmt = (n, d = 2) => n == null || isNaN(n) ? "—" : "$" + n.toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d });
 const escP = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 function convert(p, u) { if (p == null) return null; if (u === "g") return p / OZ_IN_G; if (u === "kg") return (p / OZ_IN_G) * 1000; return p; }
-const unitLabel = (u) => ({ oz: "USD / troy oz", g: "USD / gram", kg: "USD / kg" }[u]);
+const unitLabel = (u) => t("unitLabel." + u);
+const metalName = (m) => t("metal." + m.sym);
 
 async function fetchJSON(url) {
   const ctrl = new AbortController(); const t = setTimeout(() => ctrl.abort(), 8000);
@@ -51,9 +52,9 @@ function sparkline(h) {
   return `<svg viewBox="0 0 100 30" preserveAspectRatio="none"><polyline points="${pts}" fill="none" stroke="${h[h.length - 1] >= h[0] ? "#2ecc71" : "#ff5d5d"}" stroke-width="1.8" vector-effect="non-scaling-stroke"/></svg>`;
 }
 function changeHTML(d) {
-  if (!d || !d.live || d.first == null) return '<span class="muted">' + (d && d.price ? "reference price · live feed offline" : "connecting…") + "</span>";
+  if (!d || !d.live || d.first == null) return '<span class="muted">' + (d && d.price ? t("prices.offline") : t("prices.connecting")) + "</span>";
   const pct = ((d.price - d.first) / d.first) * 100;
-  return `<span class="${pct >= 0 ? "up" : "down"}">${pct >= 0 ? "▲" : "▼"} ${Math.abs(pct).toFixed(2)}%</span> <span class="muted">since you opened the page</span>`;
+  return `<span class="${pct >= 0 ? "up" : "down"}">${pct >= 0 ? "▲" : "▼"} ${Math.abs(pct).toFixed(2)}%</span> <span class="muted">${t("prices.since")}</span>`;
 }
 
 function renderGrid() {
@@ -62,25 +63,26 @@ function renderGrid() {
     const d = Prices.data[m.sym] || {}; const val = convert(d.price, Prices.unit);
     const flash = d.prev != null && d.price !== d.prev ? (d.price > d.prev ? "flash-up" : "flash-down") : "";
     return `<div class="metal ${m.sym === "XAU" ? "gold-card" : ""}">
-      <div class="metal__top"><span class="metal__name">${m.name}</span><span class="metal__sym">${m.sym}/USD</span></div>
+      <div class="metal__top"><span class="metal__name">${metalName(m)}</span><span class="metal__sym">${m.sym}/USD</span></div>
       <div class="metal__price ${flash}">${val == null ? "—" : fmt(val, Prices.unit === "kg" ? 0 : 2)}</div>
-      <div class="metal__unit">${unitLabel(Prices.unit)}${d.live ? " · LIVE" : ""}</div>
+      <div class="metal__unit">${unitLabel(Prices.unit)}${d.live ? " · " + t("live") : ""}</div>
       <div class="metal__chg">${changeHTML(d)}</div>${sparkline(d.history)}</div>`;
   }).join("");
   setTimeout(() => grid.querySelectorAll(".flash-up,.flash-down").forEach((e) => e.classList.remove("flash-up", "flash-down")), 1500);
 }
-function renderTicker(minerals) {
+function renderTicker() {
+  const minerals = (window.SITE?.prices?.minerals || []).map((m, i) => ({ name: tr(`prices.minerals.${i}.name`), price: m.price, unit: tr(`prices.minerals.${i}.unit`) }));
   const el = document.getElementById("tickerInner");
   const live = Prices.metals.map((m) => {
     const d = Prices.data[m.sym]; if (!d || d.price == null) return "";
     let chg = "";
     if (d.live && d.first) { const pct = ((d.price - d.first) / d.first) * 100; chg = ` <i class="${pct >= 0 ? "up" : "down"}">${pct >= 0 ? "▲" : "▼"}${Math.abs(pct).toFixed(2)}%</i>`; }
-    return `<span><b>${m.name.toUpperCase()}</b> ${fmt(d.price)}/oz${chg}</span>`;
+    return `<span><b>${metalName(m).toUpperCase()}</b> ${fmt(d.price)}/oz${chg}</span>`;
   });
   const gold = Prices.goldOz();
-  if (gold) live.splice(1, 0, `<span><b>GOLD</b> ${fmt(gold / OZ_IN_G)}/g · ${fmt((gold / OZ_IN_G) * 1000, 0)}/kg</span>`);
+  if (gold) live.splice(1, 0, `<span><b>${t("metal.XAU").toUpperCase()}</b> ${fmt(gold / OZ_IN_G)}/g · ${fmt((gold / OZ_IN_G) * 1000, 0)}/kg</span>`);
   const ind = minerals.slice(0, 8).map((m) => `<span><b>${escP(m.name).toUpperCase()}</b> $${escP(m.price)} ${escP(m.unit)}*</span>`);
-  const html = [...live, ...ind].join("") || "Market prices";
+  const html = [...live, ...ind].join("") || t("ticker.fallback");
   if (el.dataset.html !== html) { el.innerHTML = html; el.dataset.html = html; }
 }
 function renderHero() {
@@ -88,34 +90,39 @@ function renderHero() {
   if (!d) return;
   p.textContent = fmt(d.price) + " /oz";
   if (d.live && d.first) { const pct = ((d.price - d.first) / d.first) * 100; c.className = pct >= 0 ? "up" : "down"; c.textContent = (pct >= 0 ? "▲ " : "▼ ") + Math.abs(pct).toFixed(2) + "%"; }
-  else c.textContent = d.live ? "" : "(reference)";
+  else c.textContent = d.live ? "" : t("hero.reference");
 }
+
+function renderMineralTable() {
+  const P = window.SITE?.prices || {};
+  document.getElementById("mineralTable").innerHTML = (P.minerals || []).map((m, i) =>
+    `<tr><td>${escP(tr(`prices.minerals.${i}.name`))}</td><td class="muted">${escP(tr(`prices.minerals.${i}.grade`))}</td><td dir="ltr">$${escP(m.price)}</td><td class="muted">${escP(tr(`prices.minerals.${i}.unit`))}</td></tr>`).join("");
+  document.getElementById("mineralNote").textContent = "* " + t("minerals.asOf", { date: tr("prices.indicativeUpdated") || "—" }) + " " + (tr("prices.note") || "");
+}
+function renderUpdated() {
+  const d = Prices.data.XAU, el = document.getElementById("lastUpdated");
+  if (d) el.textContent = t(d.live ? "prices.updated" : "prices.updatedOffline", { time: d.updated.toLocaleTimeString(window.LANG === "zh" ? "zh-CN" : window.LANG) });
+}
+window.rerenderPrices = function () { renderMineralTable(); renderGrid(); renderTicker(); renderHero(); renderUpdated(); };
 
 window.initPrices = function (site) {
   const P = site.prices || {};
   Prices.metals = [
-    { sym: "XAU", name: "Gold", fallback: Number(P.goldFallback) || null },
-    P.showSilver !== false && { sym: "XAG", name: "Silver" },
-    P.showPlatinum !== false && { sym: "XPT", name: "Platinum" },
-    P.showPalladium !== false && { sym: "XPD", name: "Palladium" },
+    { sym: "XAU", fallback: Number(P.goldFallback) || null },
+    P.showSilver !== false && { sym: "XAG" },
+    P.showPlatinum !== false && { sym: "XPT" },
+    P.showPalladium !== false && { sym: "XPD" },
   ].filter(Boolean);
-  const minerals = P.minerals || [];
 
   document.getElementById("chartPanel").hidden = P.showChart === false;
   document.getElementById("calcPanel").hidden = P.showCalculator === false;
   if (P.showChart === false || P.showCalculator === false) document.getElementById("pricesSplit").style.gridTemplateColumns = "1fr";
 
-  document.getElementById("mineralTable").innerHTML = minerals.map((m) =>
-    `<tr><td>${escP(m.name)}</td><td class="muted">${escP(m.grade)}</td><td>$${escP(m.price)}</td><td class="muted">${escP(m.unit)}</td></tr>`).join("");
-  document.getElementById("mineralNote").textContent = `* Indicative world-market ranges as of ${P.indicativeUpdated || "—"}. ${P.note || ""}`;
-
+  renderMineralTable();
   Prices.onUpdate(renderGrid);
-  Prices.onUpdate(() => renderTicker(minerals));
+  Prices.onUpdate(renderTicker);
   Prices.onUpdate(renderHero);
-  Prices.onUpdate(() => {
-    const d = Prices.data.XAU, el = document.getElementById("lastUpdated");
-    if (d) el.textContent = "Last updated " + d.updated.toLocaleTimeString() + (d.live ? "." : " (live feed unavailable – showing reference price).");
-  });
+  Prices.onUpdate(renderUpdated);
 
   document.querySelectorAll(".unit-switch button").forEach((b) => b.addEventListener("click", () => {
     document.querySelectorAll(".unit-switch button").forEach((x) => x.classList.remove("active"));

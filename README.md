@@ -30,12 +30,20 @@ A dynamic website for Metallic Ore Limited with a password-protected admin panel
 | Location & Map | Address on Google Map, exact embed link, coordinates |
 | Contact Form | Title, text, product options |
 | Footer & SEO | Google title/description, footer text |
+| Languages & Theme | Default theme, languages shown, translation progress |
 | Quote Requests | Every form submission saved here: mark read, reply on WhatsApp, delete, export CSV |
 | Media Library | Upload / delete images and videos |
 | Backups | Every save is backed up (last 30); one-click restore |
 | Account | Change username and password |
 
 Press **Save changes** (or Ctrl+S) and the website updates immediately.
+
+## Themes & languages
+- Visitors switch **dark / light** with the sun/moon button and pick a **language** (English, Français, 中文, العربية) in the top bar. Their choice is remembered. Arabic shows right-to-left.
+- Links can open a language directly: `/?lang=fr`, `/?lang=zh`, `/?lang=ar`.
+- **Admin → Languages & Theme:** default theme (dark, light or automatic), which languages are shown, default language, translation progress.
+- **Translating content:** choose a language under **Editing language** at the top of the admin panel. Each text box shows the English original underneath; leave a box empty to fall back to English. Images, numbers, prices and contact details are shared by all languages and are edited in English.
+- Menu and button wording lives in `public/js/i18n.js`.
 
 ## Folder structure
 ```

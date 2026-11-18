@@ -10,12 +10,18 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Great+Vibes&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
+  <script>
+    /* apply saved theme & language before the page paints */
+    (function(){try{var t=localStorage.getItem("mo_theme");if(t)document.documentElement.setAttribute("data-theme",t);
+      var l=new URLSearchParams(location.search).get("lang")||localStorage.getItem("mo_lang");
+      if(l==="ar"){document.documentElement.setAttribute("dir","rtl");document.documentElement.lang="ar";}}catch(e){}})();
+  </script>
 </head>
 <body class="loading">
 
   <div class="ticker" aria-label="World market prices">
-    <div class="ticker__label"><span class="dot"></span> LIVE MARKET</div>
-    <div class="ticker__track"><div class="ticker__inner" id="tickerInner">Loading world market prices…</div></div>
+    <div class="ticker__label"><span class="dot"></span> <span data-i18n="ticker.live">LIVE MARKET</span></div>
+    <div class="ticker__track"><div class="ticker__inner" id="tickerInner" data-i18n="ticker.loading">Loading world market prices…</div></div>
   </div>
 
   <header class="nav" id="nav">
@@ -24,14 +30,24 @@
       <span><b data-text="company.brandMain">METALLIC</b> <i data-text="company.brandSub" style="font-style:normal">ORE</i><small>LIMITED</small></span>
     </a>
     <nav class="nav__links" id="navLinks">
-      <a href="#about">About</a>
-      <a href="#products">Products</a>
-      <a href="#prices">Market Prices</a>
-      <a href="#why">Why Us</a>
-      <a href="#location">Location</a>
-      <a href="#contact" class="btn btn--gold btn--sm">Contact Us</a>
+      <a href="#about" data-i18n="nav.about">About</a>
+      <a href="#products" data-i18n="nav.products">Products</a>
+      <a href="#prices" data-i18n="nav.prices">Market Prices</a>
+      <a href="#why" data-i18n="nav.why">Why Us</a>
+      <a href="#location" data-i18n="nav.location">Location</a>
+      <a href="#contact" class="btn btn--gold btn--sm" data-i18n="nav.contact">Contact Us</a>
     </nav>
-    <button class="nav__toggle" id="navToggle" aria-label="Open menu"><span></span><span></span><span></span></button>
+    <div class="nav__tools">
+      <label class="lang-pick" data-i18n-title="ui.language" title="Language">
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm6.9 6h-2.9a15.7 15.7 0 0 0-1.4-3.6A8 8 0 0 1 18.9 8zM12 4a13.9 13.9 0 0 1 1.9 4h-3.8A13.9 13.9 0 0 1 12 4zM4.3 14a8.2 8.2 0 0 1 0-4h3.4a16.5 16.5 0 0 0 0 4zm.8 2h2.9a15.7 15.7 0 0 0 1.4 3.6A8 8 0 0 1 5.1 16zM8 8H5.1a8 8 0 0 1 4.3-3.6A15.7 15.7 0 0 0 8 8zm4 12a13.9 13.9 0 0 1-1.9-4h3.8A13.9 13.9 0 0 1 12 20zm2.3-6H9.7a14.7 14.7 0 0 1 0-4h4.6a14.7 14.7 0 0 1 0 4zm.3 5.6a15.7 15.7 0 0 0 1.4-3.6h2.9a8 8 0 0 1-4.3 3.6zM16.3 14a16.5 16.5 0 0 0 0-4h3.4a8.2 8.2 0 0 1 0 4z"/></svg>
+        <select id="langSelect" aria-label="Language"></select>
+      </label>
+      <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch theme">
+        <svg class="i-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg>
+        <svg class="i-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M20.7 14.6A8.5 8.5 0 0 1 9.4 3.3a8.5 8.5 0 1 0 11.3 11.3z"/></svg>
+      </button>
+    </div>
+    <button class="nav__toggle" id="navToggle" aria-label="Open menu" data-i18n-aria="ui.menu"><span></span><span></span><span></span></button>
   </header>
 
   <section class="hero" id="home">
@@ -47,8 +63,8 @@
         <a href="#prices" class="btn btn--ghost" data-text="hero.ctaSecondary">View Live Prices</a>
       </div>
       <div class="hero__gold reveal" id="heroGold">
-        <span>Gold spot (XAU/USD)</span>
-        <strong id="heroGoldPrice">—</strong>
+        <span data-i18n="hero.goldSpot">Gold spot (XAU/USD)</span>
+        <strong id="heroGoldPrice" dir="ltr">—</strong>
         <em id="heroGoldChange"></em>
       </div>
     </div>
@@ -80,47 +96,47 @@
 
   <section class="section prices" id="prices">
     <div class="container">
-      <p class="eyebrow center reveal">World market</p>
+      <p class="eyebrow center reveal" data-i18n="prices.eyebrow">World market</p>
       <h2 class="center reveal" data-text="prices.title"></h2>
-      <p class="center muted reveal">Precious metal spot prices refresh automatically every 60 seconds. <span id="lastUpdated"></span></p>
+      <p class="center muted reveal"><span data-i18n="prices.refresh">Precious metal spot prices refresh automatically every 60 seconds.</span> <span id="lastUpdated"></span></p>
       <div class="unit-switch reveal" role="tablist">
-        <button class="active" data-unit="oz">per troy oz</button>
-        <button data-unit="g">per gram</button>
-        <button data-unit="kg">per kg</button>
+        <button class="active" data-unit="oz" data-i18n="unit.oz">per troy oz</button>
+        <button data-unit="g" data-i18n="unit.g">per gram</button>
+        <button data-unit="kg" data-i18n="unit.kg">per kg</button>
       </div>
       <div class="metal-grid" id="metalGrid"></div>
       <div class="prices__split" id="pricesSplit">
         <div class="panel reveal" id="chartPanel">
-          <h3>Gold chart (XAU/USD)</h3>
+          <h3 data-i18n="chart.title">Gold chart (XAU/USD)</h3>
           <div class="tradingview-widget-container" id="tvChart"></div>
         </div>
         <div class="panel reveal" id="calcPanel">
-          <h3>Gold value calculator</h3>
+          <h3 data-i18n="calc.title">Gold value calculator</h3>
           <form class="calc" id="calc">
-            <label>Weight
+            <label><span data-i18n="calc.weight">Weight</span>
               <div class="row"><input type="number" id="calcWeight" value="10" min="0" step="any" />
-                <select id="calcUnit"><option value="g">grams</option><option value="oz">troy oz</option><option value="kg">kg</option></select></div>
+                <select id="calcUnit"><option value="g" data-i18n="calc.grams">grams</option><option value="oz" data-i18n="calc.oz">troy oz</option><option value="kg" data-i18n="calc.kg">kg</option></select></div>
             </label>
-            <label>Purity
+            <label><span data-i18n="calc.purity">Purity</span>
               <select id="calcPurity">
-                <option value="0.999">24K · 999.9 fine</option>
-                <option value="0.958">23K · 958</option>
-                <option value="0.916">22K · 916</option>
-                <option value="0.875">21K · 875</option>
-                <option value="0.75">18K · 750</option>
-                <option value="0.90">Alluvial dust (~90%)</option>
-                <option value="0.85">Alluvial dust (~85%)</option>
+                <option value="0.999" data-i18n="calc.k24">24K · 999.9 fine</option>
+                <option value="0.958" data-i18n="calc.k23">23K · 958</option>
+                <option value="0.916" data-i18n="calc.k22">22K · 916</option>
+                <option value="0.875" data-i18n="calc.k21">21K · 875</option>
+                <option value="0.75" data-i18n="calc.k18">18K · 750</option>
+                <option value="0.90" data-i18n="calc.dust90">Alluvial dust (~90%)</option>
+                <option value="0.85" data-i18n="calc.dust85">Alluvial dust (~85%)</option>
               </select>
             </label>
-            <div class="calc__out"><span>Estimated world-market value</span><strong id="calcOut">—</strong><small>Based on live spot price. Final price depends on assay, quantity and terms.</small></div>
+            <div class="calc__out"><span data-i18n="calc.estimate">Estimated world-market value</span><strong id="calcOut">—</strong><small data-i18n="calc.note">Based on live spot price. Final price depends on assay, quantity and terms.</small></div>
           </form>
         </div>
       </div>
       <div class="panel reveal">
-        <h3>Diamonds, rutile & industrial minerals <span class="tag">Indicative</span></h3>
+        <h3><span data-i18n="minerals.title">Diamonds, rutile & industrial minerals</span> <span class="tag" data-i18n="minerals.tag">Indicative</span></h3>
         <div class="table-wrap">
           <table class="mtable">
-            <thead><tr><th>Mineral</th><th>Grade / basis</th><th>Indicative price (USD)</th><th>Unit</th></tr></thead>
+            <thead><tr><th data-i18n="minerals.colName">Mineral</th><th data-i18n="minerals.colGrade">Grade / basis</th><th data-i18n="minerals.colPrice">Indicative price (USD)</th><th data-i18n="minerals.colUnit">Unit</th></tr></thead>
             <tbody id="mineralTable"></tbody>
           </table>
         </div>
@@ -147,17 +163,17 @@
   <section class="section location" id="location">
     <div class="container loc__grid">
       <div class="reveal">
-        <p class="eyebrow">Visit us</p>
+        <p class="eyebrow" data-i18n="loc.eyebrow">Visit us</p>
         <h2 data-text="location.title"></h2>
         <ul class="contact-list">
           <li><span>📍</span><div><b data-text="company.address1"></b><br /><span class="plain" data-text="company.address2"></span></div></li>
-          <li><span>📞</span><div><b data-text="company.phone"></b><br />Call or WhatsApp</div></li>
-          <li id="emailRow" hidden><span>✉️</span><div><b data-text="company.email"></b><br />Email us</div></li>
+          <li><span>📞</span><div><b data-text="company.phone" dir="ltr"></b><br /><span data-i18n="loc.call">Call or WhatsApp</span></div></li>
+          <li id="emailRow" hidden><span>✉️</span><div><b data-text="company.email"></b><br /><span data-i18n="loc.email">Email us</span></div></li>
           <li><span>⛏️</span><div data-text="company.licence"></div></li>
         </ul>
         <div class="loc__btns">
-          <a class="btn btn--gold" id="directionsBtn" target="_blank" rel="noopener" href="#">Get Directions</a>
-          <button class="btn btn--ghost" id="locateMe" type="button">Show my distance</button>
+          <a class="btn btn--gold" id="directionsBtn" target="_blank" rel="noopener" href="#" data-i18n="loc.directions">Get Directions</a>
+          <button class="btn btn--ghost" id="locateMe" type="button" data-i18n="loc.distance">Show my distance</button>
         </div>
         <p class="muted small" id="distanceOut"></p>
       </div>
@@ -170,26 +186,26 @@
   <section class="section contact" id="contact">
     <div class="container contact__grid">
       <div class="reveal">
-        <p class="eyebrow">Get in touch</p>
+        <p class="eyebrow" data-i18n="contact.eyebrow">Get in touch</p>
         <h2 data-text="contact.title"></h2>
         <p class="muted" data-text="contact.text"></p>
       </div>
       <form class="form reveal" id="quoteForm">
         <div class="row2">
-          <input required name="name" placeholder="Full name" maxlength="100" />
-          <input name="country" placeholder="Country" maxlength="60" />
+          <input required name="name" placeholder="Full name" data-i18n-ph="form.name" maxlength="100" />
+          <input name="country" placeholder="Country" data-i18n-ph="form.country" maxlength="60" />
         </div>
         <div class="row2">
-          <input name="email" type="email" placeholder="Email (optional)" maxlength="120" />
-          <input name="phone" placeholder="Phone / WhatsApp" maxlength="40" />
+          <input name="email" type="email" placeholder="Email (optional)" data-i18n-ph="form.email" maxlength="120" />
+          <input name="phone" placeholder="Phone / WhatsApp" data-i18n-ph="form.phone" maxlength="40" />
         </div>
         <div class="row2">
           <select name="product" id="productSelect"></select>
-          <input name="qty" placeholder="Quantity (e.g. 5 kg)" maxlength="60" />
+          <input name="qty" placeholder="Quantity (e.g. 5 kg)" data-i18n-ph="form.qty" maxlength="60" />
         </div>
-        <textarea name="message" rows="4" placeholder="Your message" maxlength="3000"></textarea>
+        <textarea name="message" rows="4" placeholder="Your message" data-i18n-ph="form.message" maxlength="3000"></textarea>
         <input name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
-        <button class="btn btn--gold" type="submit">Send Request</button>
+        <button class="btn btn--gold" type="submit" data-i18n="form.send">Send Request</button>
         <p class="form__status" id="formStatus" role="status"></p>
       </form>
     </div>
@@ -206,8 +222,8 @@
       </div>
       <div class="muted small">
         <p data-text="company.address1"></p>
-        <p>Tel / WhatsApp: <span data-text="company.phone"></span></p>
-        <p>© <span id="year"></span> <span data-text="company.name"></span>. All rights reserved.</p>
+        <p><span data-i18n="footer.tel">Tel / WhatsApp:</span> <span data-text="company.phone" dir="ltr"></span></p>
+        <p>© <span id="year"></span> <span data-text="company.name"></span>. <span data-i18n="footer.rights">All rights reserved.</span></p>
       </div>
     </div>
   </footer>
@@ -216,6 +232,7 @@
     <svg viewBox="0 0 32 32" width="30" height="30"><path fill="#fff" d="M16 3a13 13 0 0 0-11.2 19.6L3 29l6.6-1.7A13 13 0 1 0 16 3zm0 23.6a10.6 10.6 0 0 1-5.4-1.5l-.4-.2-3.9 1 1-3.8-.2-.4A10.6 10.6 0 1 1 16 26.6zm5.8-7.9c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7 0a8.7 8.7 0 0 1-4.3-3.8c-.3-.6.3-.5.9-1.7.1-.2 0-.4 0-.5l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.9.4 3.6 3.6 0 0 0-1.1 2.7 6.3 6.3 0 0 0 1.3 3.3 14.4 14.4 0 0 0 5.5 4.9c2 .9 2.8.9 3.8.8a3.2 3.2 0 0 0 2.1-1.5 2.6 2.6 0 0 0 .2-1.5c-.1-.2-.3-.3-.6-.4z"/></svg>
   </a>
 
+  <script src="js/i18n.js"></script>
   <script src="js/prices.js"></script>
   <script src="js/main.js"></script>
   <script src="js/content.js"></script>

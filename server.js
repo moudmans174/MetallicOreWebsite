@@ -178,7 +178,7 @@ app.post("/api/inquiries", rateLimit(5, 10 * 60 * 1000), (req, res) => {
   const item = {
     id: crypto.randomUUID(), date: new Date().toISOString(), read: false,
     name: clip(b.name, 100), country: clip(b.country, 60), email: clip(b.email, 120), phone: clip(b.phone, 40),
-    product: clip(b.product, 60), qty: clip(b.qty, 60), message: clip(b.message, 3000),
+    product: clip(b.product, 60), qty: clip(b.qty, 60), message: clip(b.message, 3000), lang: clip(b.lang, 5),
   };
   if (!item.name) return res.status(400).json({ error: "Name is required" });
   const list = readJSON(INQ_FILE, []);
